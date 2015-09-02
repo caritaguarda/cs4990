@@ -9,8 +9,18 @@ class ChoiceInline(admin.TabularInline):
     
 
 class QuestionAdmin(admin.ModelAdmin):
-    fields = ['question_text', 'pub_date'] #will order fields on admin screen
+    fieldsets = [
+        (None, {'fields': ['question_text']}),
+        ('Date Information', {'fields': ['pub_date']}),
+    ]
+
     inlines = [ChoiceInline] #to show choices on same screen as question
+    
+    list_display = ('question_text', 'pub_date', 'was_published_recently')
+    
+    list_filter = ['pub_date']
+
+    search_fields = ['question_text']
 
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Choice)
