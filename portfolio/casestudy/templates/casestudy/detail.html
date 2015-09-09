@@ -1,0 +1,15 @@
+<h1> {{ casestudy.name}} </h1>
+{% if casestudy.item_set %}
+<table>
+{% for item in casestudy.item_set.all %}
+  <tr>
+    <td colspan = '2' > {{ item.title }} </td>  
+  </tr>
+  <tr>
+    <td><img src='/media/{{item.photo}}' </td>
+    <td> {{ item.description }}</td>
+{% endfor %}
+</table>
+
+
+{% endif %}

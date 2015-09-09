@@ -1,0 +1,16 @@
+{% if casestudy_list %}
+
+  <ul>
+    {% for study in casestudy_list %}
+
+    <li><a href="{% url 'casestudy:detail' study.id %}">{{study.name}}</a> - {{study.description}} </li>
+
+    {% endfor %}
+
+  </ul>
+
+{% else %}
+
+  <p> No case studies to show. </p>
+
+{% endif %}
