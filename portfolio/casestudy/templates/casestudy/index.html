@@ -1,16 +1,24 @@
+{% extends 'base.html' %}
+
+{% block 'title' %} List of Case Studies {% endblock %}
+
+{% block 'content' %} 
+
 {% if casestudy_list %}
 
-  <ul>
-    {% for study in casestudy_list %}
+<ul>
+  {% for study in casestudy_list %}
 
-    <li><a href="{% url 'casestudy:detail' study.id %}">{{study.name}}</a> - {{study.description}} </li>
+  <li><a href="{% url 'casestudy:detail' study.id %}">{{study.name}}</a> - {{study.description}} </li>
 
-    {% endfor %}
+  {% endfor %}
 
-  </ul>
+</ul>
 
 {% else %}
 
-  <p> No case studies to show. </p>
+<p> No case studies to show. </p>
 
 {% endif %}
+
+{% endblock %}
