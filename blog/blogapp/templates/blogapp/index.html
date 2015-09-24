@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block 'title' %}Carita's Most Recent Blog Posts{% endblock 'title' %}
+
+{% block 'content' %}
+
+<h1> Most Recent Blog Posts </h2>
+
+{% if post_list %}
+  
+  {% for post in post_list %}
+
+    {% include 'blogapp/_post.html' %}
+    <br>
+    <a href="{% url 'blogapp:detail' post.id %}#comment-section">Leave a comment...</a>
+    <br>
+    
+        {% if not foorloop.last %}
+        <hr>
+        {% endif %}
+        
+  {% endfor %}
+
+{% else %}
+
+<p> No posts to show. </p>
+
+{% endif %}
+
+{% endblock 'content' %}

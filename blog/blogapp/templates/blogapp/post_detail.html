@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block 'title' %}{{ post.title }} {% endblock 'title' %}
+
+{% block 'content' %}
+
+    {% include 'blogapp/_post.html' %}
+    
+    
+    <br><br>
+    <div id="comment-section"> <!-- begin comment section -->
+    
+    <h4> Leave a Comment</h4>
+    <form action="{% url 'blogapp:commentsuccess' %}" method='post'>
+    {% csrf_token %}
+    <input type="hidden" id="post" name="post" value="{{ post.id }}">
+    <table class="table">
+    {{ form }}
+
+    <tr>
+        <td colspan="2"><input type="submit" value="Submit Comment"></td>
+    </tr>
+    </table>
+
+    </form>
+    
+    
+    <br><br>
+    {% for comment in post.comment_set.all reversed %}
+    
+        <h5> On {{ comment.pub_date|date:"M d, Y h:m" }}, {{ comment.person }} said: </h5>
+        <div class="well"> {{ comment.comment_text }} </div>
+        
+        {% if not foorloop.last %}
+        <hr>
+        {% endif %}
+        
+        
+    {% empty %}
+        <p> Be the first to comment on this post. </p>
+        
+    {% endfor %}
+    </div> <!-- end comment-section -->
+
+{% endblock 'content' %}

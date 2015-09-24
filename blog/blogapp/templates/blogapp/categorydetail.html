@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block 'title' %}{{ category.category_name }} Blog Posts{% endblock 'title' %}
+
+{% block 'content' %}
+    {% for post in category.post_set.all %}
+        {% include 'blogapp/_post.html' %}  
+        <br>
+        <hr>
+    {% endfor %}
+    
+
+
+{% endblock 'content' %}
