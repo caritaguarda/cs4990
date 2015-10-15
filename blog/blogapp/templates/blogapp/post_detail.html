@@ -31,7 +31,7 @@
         <h5> On {{ comment.pub_date|date:"M d, Y h:m" }}, {{ comment.person }} said: </h5>
         <div class="well"> {{ comment.comment_text }} </div>
         
-        {% if not foorloop.last %}
+        {% if not forloop.last %}
         <hr>
         {% endif %}
         

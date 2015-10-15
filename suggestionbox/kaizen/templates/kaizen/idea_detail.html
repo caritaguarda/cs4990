@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block 'title' %} Kaizen Detail{% endblock %}
+
+{% block 'content' %}
+
+<table class="table">
+
+        <tr>
+           <td>Kaizen Title:</td><td>{{ idea.title }}</td>
+        </tr>
+        <tr>
+            <td>Description:</td><td>{{ idea.description }}</td>
+        </tr>
+        <tr>
+            <td>Date Published:</td><td>{{ idea.pub_date }}</td>
+        </tr>
+        <tr>
+            <td>Status:</td><td>{{ idea.get_status_display }}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                {% if request.user.is_superuser %}
+                <a class="btn btn-default" href="{% url 'changestatus' idea.id %}">Change Status</a>
+                {% endif %}
+
+            </td>
+        </tr>
+
+</table>
+<a href="{% url 'addcomment' idea.id %}">Leave a Comment</a>
+
+    {% for comment in idea.comment_set.all reversed %}
+        <h5> On {{ comment.pub_date|date:"M d, Y h:m" }}, {{ comment.profile.username }} said:</h5>
+        <div class="well">         {{ comment.comment_text }} </div>
+        {% if not forloop.last %}
+        <hr>
+        {% endif %}
+    {% empty %}
+        <p>No comments. Want to leave a <a href="{% url 'addcomment' idea.id %}">comment?</a></p>
+    {% endfor %}
+
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block 'title' %} Kaizen Categories{% endblock %}
+
+{% block 'content' %}
+
+    <h1>Kaizens Categories</h1>
+    <a href="{% url 'idealist' %}">View All Kaizens</a>
+    {% for category in category_list %}
+        <h3><a href="{% url 'categorydetail' category.id %}">{{ category.title }}</a></h3>
+
+    {% empty %}
+    <p>No categories exist yet. Want to <a href="{% url 'createcategory' %}">add one?</a></p>
+    {% endfor %}
+    <br>
+    <br>
+
+    <a href="{% url 'createcategory' %}">Add Category</a>
+{% endblock %}

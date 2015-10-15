@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block 'title' %} Kaizen Categories{% endblock %}
+
+{% block 'content' %}
+
+    <h1>Category: {{ category.title }}</h1>
+
+    {% for idea in category.idea_set.all %}
+        <h3><a href="{% url 'ideadetail' idea.id %}">{{ idea.title }}</a></h3>
+
+    {% empty %}
+    <p>No Kaizens exist for this category yet. Want to <a href="{% url 'newidea' %}">submit one?</a></p>
+    {% endfor %}
+    <br>
+    <br>
+    <a href="{% url 'idealist' %}">View All Kaizens</a>
+    <br>
+    
+
+
+{% endblock %}

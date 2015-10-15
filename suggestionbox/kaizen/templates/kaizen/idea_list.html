@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block 'title' %} List of Kaizens{% endblock %}
+
+{% block 'content' %}
+
+    <h1>List of All User-Submitted Kaizens</h1>
+    <a href="{% url 'categorylist' %}">View Category List</a>
+    {% for idea in idea_list %}
+        <div {% ifequal idea.profile.user request.user %} class="mark"{% endifequal %}>
+        <h3>{{ idea.title }}</h3>
+        <h4>Submitted by: {{ idea.profile }} on {{ idea.pub_date|date:"M d, Y h:m" }}</h4>
+        <p>
+            {{ idea.description }}
+        </p>
+        <table class="table">
+            <tr>
+                <td> Category </td>
+                <td> {{ idea.category.title }} </td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>
+                    {% if request.user.is_superuser %}
+
+                            {{ idea.get_status_display }} <a href="{% url 'changestatus' idea.id %}"> (Change)
+                        </a>
+                    {% else %}
+                        {{ idea.get_status_display }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+
+                <td colspan="2"> <a href="{% url 'ideadetail' idea.id %}">See Comments</a></td>
+            </tr>
+
+        </table>
+        </div>
+        <br>
+        <br>
+    {% empty %}
+    <p>No Kaizens submitted yet. Want to <a href="">submit one?</a></p>
+    {% endfor %}
+
+    <h5>We want to hear from you!</h5><a class="btn btn-default" href="{% url 'newidea' %}">Submit your Idea</a>
+{% endblock %}

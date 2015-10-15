@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block 'title' %} New Kaizens Category{% endblock %}
+
+{% block 'content' %}
+
+
+    <form action="." method="post">
+        {% csrf_token %}
+        <table class="table">
+        {{ form }}
+        <td colspan="2"><button type="submit" id="submit" name="submit">Add a new category!</button></td>
+        </table>
+
+    </form>
+
+
+
+{% endblock %}
