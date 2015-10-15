@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block 'title' %}Delete Item{% endblock %}
+{% block 'content' %}
+
+
+    <h2>Are you sure you want to delete the item <strong>{{ item }}</strong>?</h2>
+    <p>This action cannot be undone.</p>
+
+    <form action="{% url 'inventory:deleteitem' item.id %}" method='post'>
+    {% csrf_token %}
+
+        {{ form }}
+        <input type="submit" value="Delete Item">
+￼
+
+    </form>
+
+
+
+{% endblock %}

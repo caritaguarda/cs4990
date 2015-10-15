@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block 'title' %}{% if item %}Update{% else %}Add{% endif %} An Item{% endblock %}
+
+{% block 'extrascripts' %}
+<script>
+
+$(document).ready(function () {
+ $('#itemform').submit(
+    function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'post',
+            data: $(this).serialize(),
+            success: function (data) {
+                    $('#status').text('Successfully updated item').show().fadeOut(5000);
+
+                    console.log(data);
+                },
+            error: function (xd4, statusText, errorText) {
+                    $('#status').text('Something went wrong. Please try again.');
+                    console.log("error was " + statusText + " and error text was " + errorText);
+                },
+        });
+    });
+
+    $("#increment").click(
+    function (event) {
+        form = $(this).parents("form");
+        form.find("#id_quantity").val(Number(form.find("#id_quantity").val()) + 1);
+        form.submit();
+    });
+    $("#decrement").click(
+    function (event) {
+        form = $(this).parents("form");
+        form.find("#id_quantity").val(Number(form.find("#id_quantity").val()) - 1);
+        form.submit();
+    });
+});
+</script>
+
+
+{% endblock %}
+
+
+{% block 'content' %}
+
+<h1>{% if item %}Update{% else %}Add{% endif %} An Item</h1> <div id="status" class="alert alert-success" style="display: none; height:50px;" role="alert"></div>
+
+<form action="." method="post" id="itemform">
+{% csrf_token %}
+<table class="table">
+{{ form }}
+<tr>
+    {% if item %}
+    <td>
+        <button class="btn btn-default">Update Item</button>
+        <a class="btn btn-default" href="{% url 'inventory:deleteitem' item.id %}">Delete Item</a>
+        <a class="btn btn-default" href="{% url 'inventory:categorydetail' item.category.id %}" >Back</a>
+
+    </td>
+    <td>
+        <button class="btn btn-default" id="increment"> + </button>
+        <button class="btn btn-default" id="decrement"> - </button>
+    </td>
+    {% else %}
+        <td colspan="2">
+        <button class="btn btn-default">Add Item</button>
+        </td>
+    {% endif %}
+</tr>
+
+</table>
+
+</form>
+
+{% endblock %}

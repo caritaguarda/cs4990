@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block 'title' %}Inventory: List of Categories{% endblock %}
+
+
+
+{% block 'content' %}
+<h2> Current Inventory Categories</h2>
+
+<ul class="list-unstyled">
+{% for category in category_list %}
+   <h3>
+   <li>
+    {{ category.name }} <br>
+    <a href="{% url 'inventory:categorydetail' category.id %}" class="btn btn-default btn-xs">Details</a>
+    <a href="{% url 'inventory:updatecategory' category.id %}" class="btn btn-default btn-xs">Edit</a>
+   </li>
+    </h3>
+{% empty %}
+   <p>There are no categories. Want to <a href="{% url 'inventory:addcategory' %}">add one?</a></p>
+
+{% endfor %}
+</ul>
+<br>
+<p><a href="{% url 'inventory:addcategory' %}">Add A New Category</a></p>
+
+{% endblock %}

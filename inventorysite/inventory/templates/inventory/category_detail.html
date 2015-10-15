@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block 'title' %}Category Detail{% endblock %}
+
+
+
+{% block 'content' %}
+
+<h2> Category: {{ category.name }} </h2>
+
+
+<ul class="list-unstyled">
+{% for item in category.item_set.all %}
+  <h3>
+      <li>
+          {{ item.name }}, Qty: {{ item.quantity }}
+          <a class ="btn btn-default btn-xs" href="{% url 'inventory:itemupdate' item.id %}">Edit</a>
+
+      </li>
+  </h3>
+
+
+
+
+{% empty %}
+   <p>There are no items in this category. Want to <a href="{% url 'inventory:additem' %}">add one?</a></p>
+
+{% endfor %}
+
+</ul>
+<br>
+<p><a href="{% url 'inventory:additem' %}">Add A New Item</a><br>
+<a href="{% url 'inventory:categorylist' %}">Back to Category List</a></p>
+
+{% endblock %}
