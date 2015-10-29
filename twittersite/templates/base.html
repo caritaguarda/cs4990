@@ -77,6 +77,22 @@
         <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
       </div>
 {% endblock %}
+
+    {% if is_paginated %}
+    <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'twitter:tweetlist' %}?page={{ page_obj.previous_page_number }}"> &lt;Prev </a>
+                {% endif %}
+                <span class="page-current">
+                    {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{% url 'twitter:tweetlist' %}?page={{ page_obj.next_page_number }}"> Next&gt; </a>
+                {% endif %}
+            </span>
+        </div>
+{% endif %}
     </div><!-- /.container -->
 
 
