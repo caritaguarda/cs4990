@@ -1,0 +1,30 @@
+{%  load thumbnail %}
+
+    {% for post in post_list %}
+        <div {% ifequal post.profile.user request.user %} class="mark"{% endifequal %}>
+        <p style="font-size: large">
+        {% ifnotequal post.profile.user request.user %}
+        {% if post.profile.picture %}
+
+            {% thumbnail post.profile.picture "100x100" crop="center" as im %}
+            <img src="{{ im.url }}" style="text-align: center;">
+        {% endthumbnail %}
+        {% else %}
+            <img src="/media/no-profile-image.jpg" width="100" height="100" style="text-align: center;">
+        {% endif %}
+        {% endifnotequal %}
+
+
+
+             {{ post.body }}
+        </p>
+        <h5><a href="{% url 'twitter:profiledetail' post.profile.id %}"> {{ post.profile.user}} </a> ({{ post.pub_date|date:"M d, Y h:m" }})</h5>
+        </div>
+        <hr>
+
+
+
+    {% empty %}
+    <p>No tweets submitted yet. </p>
+
+    {% endfor %}

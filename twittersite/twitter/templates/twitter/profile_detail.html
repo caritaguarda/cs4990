@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %} @{{ profile.user.username }}'s Profile {% endblock %}
+
+{% block content %}
+
+    <h1> @{{ profile.user.username }}</h1>
+
+    {%  load thumbnail %}
+    {% if profile.picture %}
+        {% thumbnail profile.picture "300x300" crop="center" as im %}
+        <img src="{{ im.url }}" style="text-align: center;">
+        {% endthumbnail %}
+    {% else %}
+        <img src="/media/no-profile-image.jpg" width="300" height="300" style="text-align: center;">
+    {% endif %}
+
+    {% if request.user != profile.user %}
+
+    <div class="followbutton btn">
+        <form action="{% url 'twitter:follow' profile.id %}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-default" type="submit">Follow @{{ profile.user.username }}</button>
+        </form>
+    </div>
+    {% else %}
+        <a style="margin-left:15px;" class="btn btn-default" href="{% url 'twitter:updateprofile' profile.id %}" >Update My Profile</a> <br>
+    {% endif %}
+
+    <h2>Bio </h2>
+
+
+    <div class="well" style="margin-top:15px;">
+
+
+        {% if profile.bio != "" %}
+        {{ profile.bio }}
+        {% else %}
+            @{{profile.user.username}} hasn't done anything interesting... that we know about.
+            {% if profile.user == request.user %}
+            <a href="{% url 'twitter:updateprofile' profile.id %}">Update Your Bio</a>
+                {% else %}
+                Tell him to update his bio!
+            {% endif %}
+        {% endif %}
+    </div>
+    <h2> Following </h2>
+    <ul>
+        {% for p in profile.following.all %}
+            <li><a href="{% url 'twitter:profiledetail' p.id %}">@{{ p.user }}</a></li>
+     {% endfor %}
+    </ul>
+
+    <h2> <a href="{% url 'twitter:userposts' profile.id %}">Recent Posts</a> </h2>
+    <a href="{% url 'twitter:createpost' profile.id %}" class="btn btn-default"> Add Post</a>
+    <hr>
+
+    {% include 'twitter/_post.html' %}
+
+
+{% endblock %}

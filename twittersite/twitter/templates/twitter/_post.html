@@ -1,0 +1,18 @@
+{%  load thumbnail %}
+
+    {% for post in profile.post_set.all|slice:":10" %}
+        <p>
+
+             {{ post.body }}
+        </p>
+        <h5 style="text-align: right;">{{ post.pub_date|date:"M d, Y h:m" }}</h5>
+        <hr>
+
+
+    {% empty %}
+    <p>No current posts. </p>
+        {% if profile.user == request.user %}
+        <p>Want to <a href="">make one?</a></p>
+        {% endif %}
+
+    {% endfor %}

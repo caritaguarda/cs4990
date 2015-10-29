@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} Update @{{ profile.user.username }}'s Profile {% endblock %}
+
+{% block content %}
+    <h2>Update @{{ profile.user }}'s Profile</h2>
+    {%  load thumbnail %}
+    {% if profile.picture %}
+        {% thumbnail profile.picture "300x300" crop="center" as im %}
+        <img src="{{ im.url }}" style="text-align: center;">
+        {% endthumbnail %}
+    {% else %}
+        <img src="/media/no-profile-image.jpg" width="300" height="300" style="text-align: center;">
+    {% endif %}
+
+        <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table class="table">
+        {{ form.as_p }}
+        <td colspan="2"><button type="submit" name="submit">Update Profile</button></td>
+        </table>
+
+    </form>
+
+
+{% endblock %}

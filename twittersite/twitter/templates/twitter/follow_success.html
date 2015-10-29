@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %} Success{% endblock %}
+
+{% block content %}
+
+    You've successfully followed <a href="{% url 'twitter:profiledetail' profile.id %}"> @{{ profile.user.username }} </a>.
+
+{% endblock %}
