@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %} My Punches {% endblock %}
+
+{% block content %}
+
+    <h1>My Punches</h1>
+    <form action="." method="GET">
+    <table class="table">
+    <thead>
+    <tr>
+        <th>Project</th>
+        <th>Clock In Time</th>
+        <th>Clock Out Time</th>
+        <th> Duration</th>
+        <th> Notes</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for punch in punch_list %}
+    <tr>
+        <td>{{ punch.project.title }}</td>
+        <td>{{ punch.time_in }}</td>
+        <td>{{ punch.time_out }}</td>
+        <td>{{ punch.duration }}</td>
+        <td>{{ punch.notes }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5"
+    </tr>
+    {% endfor %}
+    </tbody>
+    {% if punch_list %}
+    <tfoot>
+    <tr>
+        <td colspan="3" style="text-align: right;">Total Time</td>
+        <td> {{ total_time }}</td>
+        <td></td>
+    </tr>
+    </tfoot>
+    {% endif %}
+    </table>
+
+
+{% endblock %}

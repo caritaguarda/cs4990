@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %} Reports {% endblock %}
+{% block extrascripts %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+    $(function () {
+        $('input[type="date"]').datepicker();
+      });
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    <h1>Reports</h1>
+    <form action="." method="GET">
+    <table class="table">
+    {% if request.user.is_superuser %}
+    <tr>
+        <td>User</td>
+        <td>
+            <select name="user">
+                <option value="">All Users</option>
+                {%  for user in users %}
+                <option value="{{  user.id }}">{% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user.username }}{% endif %}</option>
+                {% endfor %}
+            </select>
+        </td>
+    </tr>
+
+    {% endif %}
+    <tr>
+        <td>Project</td>
+        <td>
+            <select name="project">
+                <option value="">All Projects</option>
+                {%  for project in projects %}
+                <option value="{{  project.id }}">{{ project.title }}</option>
+                {% endfor %}
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Start</td>
+        <td>
+            <input type="date" name="time_in" data-date-format="yyyy-mm-dd">
+        </td>
+    </tr>
+    <tr>
+        <td>End</td>
+        <td>
+            <input type="date" name="time_out" data-date-format="yyyy-mm-dd">
+        </td>
+    </tr>
+    <tr>
+        <td>Note</td>
+        <td>
+            <input type="text" name="note">
+        </td>
+    </tr>
+
+    </table>
+    <button class="btn" name="submit" type="submit">Search</button>
+    </form>
+
+    <hr>
+
+    <table class="table">
+    <thead>
+    <tr>
+        <th>Project</th>
+        <th>Clock In Time</th>
+        <th>Clock Out Time</th>
+        <th> Duration</th>
+        <th> Notes</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for punch in punch_list %}
+    <tr>
+        <td>{{ punch.project.title }}</td>
+        <td>{{ punch.time_in }}</td>
+        <td>{{ punch.time_out }}</td>
+        <td>{{ punch.duration }}</td>
+        <td>{{ punch.notes }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5"
+    </tr>
+    {% endfor %}
+    </tbody>
+    {% if punch_list %}
+    <tfoot>
+    <tr>
+        <td colspan="3" style="text-align: right;">Total Time</td>
+        <td> {{ total_time }}</td>
+        <td></td>
+    </tr>
+    </tfoot>
+    {% endif %}
+    </table>
+
+
+{% endblock %}
