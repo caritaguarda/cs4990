@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 import datetime
+
 # Create your views here.
 
 
@@ -74,7 +75,9 @@ class ReportView(ListView):
         if "time_in" in self.request.GET and self.request.GET["time_in"] != "":
             queryset = queryset.filter(time_in__gte = self.request.GET.get("time_in"))
         if "time_out" in self.request.GET and self.request.GET["time_out"] != "":
-            queryset = queryset.filter(time_in__lte = self.request.GET.get("time_out"))
+            d = datetime.datetime.strptime(self.request.GET.get("time_out"), "%Y-%m-%d")
+            d = d+ datetime.timedelta(days=1)
+            queryset = queryset.filter(time_in__lte = d)
         if "note" in self.request.GET and self.request.GET["note"] != "":
             queryset = queryset.filter(note__icontains = self.request.GET.get("note"))
 
