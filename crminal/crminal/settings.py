@@ -83,11 +83,13 @@ WSGI_APPLICATION = 'crminal.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'crminal',
+        'USER': 'crminal',
+        'PASSWORD': 'mysupersafepassword',
+        'HOST': 'localhost',
     }
 }
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -110,3 +112,4 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SITE_ID = 1
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
