@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} Stage List {% endblock %}
+
+{% block content %}
+
+
+    <table class="table">
+        <tr>
+            <th> Name </th>
+
+            <th> Order </th>
+            <th> Value </th>
+            <th> Description </th>
+            <th></th>
+
+        </tr>
+         {% for stage in stage_list %}
+         <tr>
+             <td> {{ stage.name }} </td>
+             <td> {{ stage.order }}</td>
+             <td> {{ stage.value }}</td>
+              <td> {{ stage.description }}</td>
+
+             <td> <a href="{% url 'crm:stage_update' stage.id %}"> Edit Stage</a></td>
+         </tr>
+         {% endfor %}
+
+    </table>
+
+    <button><a href="{% url 'crm:stage_create' %}">Add a Stage</a></button>
+
+{% endblock %}

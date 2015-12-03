@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} Stage Detail {% endblock %}
+
+{% block content %}
+
+
+    <table class="table">
+        <tr>
+            <th> Name </th>
+
+            <th> Order </th>
+            <th> Value </th>
+            <th> Description </th>
+            <th></th>
+        </tr>
+
+         <tr>
+             <td> {{ stage.name }} </td>
+             <td> {{ stage.order }}</td>
+             <td> {{ stage.value }}</td>
+             <td> {{ stage.description }}</td>
+            <th><a href="{% url 'crm:stage_update' stage.id %}"><button class="btn">Edit</button></a></th>
+         </tr>
+
+
+    </table>
+
+{% endblock %}

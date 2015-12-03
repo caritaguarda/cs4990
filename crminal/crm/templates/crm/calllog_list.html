@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} Call List {% endblock %}
+
+{% block content %}
+
+
+    <table class="table">
+        <tr>
+            <th> User </th>
+
+            <th> Opportunity </th>
+            <th> Date </th>
+            <th> </th>
+
+        </tr>
+         {% for call in calllog_list %}
+         <tr>
+             <td> {{ call.user }} </td>
+             <td> {{ call.opportunity }}</td>
+             <td> {{ call.date }}</td>
+             <td> <a href="{% url 'crm:calldetail' call.id %}"> View Call</a></td>
+         </tr>
+         {% endfor %}
+
+    </table>
+
+    <button><a href="{% url 'crm:calladd' %}">Add a Call</a></button>
+
+{% endblock %}

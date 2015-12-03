@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}{% if stage %}Update {% else %}Add{% endif %} A Stage{% endblock %}
+{% block content %}
+<h1>{% if stage %}Update {% else %}Add {% endif %} A Stage</h1>
+
+<form action="." method="post">
+{% csrf_token %}
+<table class="table">
+{{ form }}
+
+
+</table>
+
+<input type="submit" value="{% if stage %}Update {% else %}Add{% endif %}Stage"/>
+</form>
+<br>
+
+
+{% endblock %}
