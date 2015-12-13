@@ -5,8 +5,15 @@ from viewsets import ModelViewSet
 from django.db.models import Count
 from .models import *
 from django.forms.fields import ChoiceField
+from django.forms.models import modelform_factory
+from bootstrap3_datetime.widgets import DateTimePicker
+
 
 # Create your views here.
+class ModelFormWidgetMixin(object):
+    def get_form_class(self):
+        return modelform_factory(self.model, fields=self.fields, widgets=self.widgets)
+
 
 class DashboardView(TemplateView):
     template_name = 'crm/dashboard.html'
@@ -41,16 +48,23 @@ class CallEditView(UpdateView):
         return reverse('crm:calldetail', args=(self.object.pk,))
 
 
-class CallAddView(CreateView):
+class CallAddView(ModelFormWidgetMixin, CreateView):
     model = CallLog
-    fields = ['opportunity', 'note']
+    fields = ['date', 'note']
+    widgets = {
+        'date': DateTimePicker(options={"format": "YYYY-MM-DD HH:mm",
+                                       "pickSeconds": False,
+                                        "stepping": "15",
+                                        "sideBySide": True })
+    }
 
     def get_success_url(self):
-        return reverse('crm:calllist')
+        return reverse('crm:opportunitydetail', args=(self.kwargs['pk']))
 
     def form_valid(self,form):
         call = form.save(commit=False)
         call.user = User.objects.filter(id=self.request.user.id)[0]
+        call.opportunity = Opportunity.objects.get(id = self.kwargs['pk'])
         call.save()
 
         return super(CallAddView, self).form_valid(form)

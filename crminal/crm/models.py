@@ -30,6 +30,28 @@ class Company(models.Model):
     def __unicode__(self):
         return self.name
 
+    def getAddress(self):
+        address = ""
+        if self.address1:
+            address += self.address1
+            address += ","
+        if self.address2:
+            address += self.address2
+            address += ", "
+        if self.city:
+            address += self.city
+            address += ", "
+        if self.state:
+            address += self.state
+            address += ","
+        if self.zipcode:
+            address += self.zipcode
+        if address != "":
+            return address
+        else:
+            return None
+
+
     class Meta:
         verbose_name_plural = 'companies'
 
@@ -49,6 +71,27 @@ class Contact(models.Model):
 
     def get_full_name(self):
         return self.first_name + " " + self.last_name
+
+    def getAddress(self):
+        address = ""
+        if self.address1:
+            address += self.address1
+            address += ","
+        if self.address2:
+            address += self.address2
+            address += ", "
+        if self.city:
+            address += self.city
+            address += ", "
+        if self.state:
+            address += self.state
+            address += ","
+        if self.zipcode:
+            address += self.zipcode
+        if address != "":
+            return address
+        else:
+            return None
 
     def __unicode__(self):
         return self.get_full_name()
@@ -114,7 +157,7 @@ class Report(models.Model):
 
 class CallLog(models.Model):
     opportunity = models.ForeignKey(Opportunity)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=datetime.datetime.now)
     note = models.TextField()
     user = models.ForeignKey(User)
 

@@ -30,18 +30,15 @@
                         <td>Company</td>
                         <td><a href="{% url 'crm:companydetail' opportunity.company.id %}">{{ opportunity.company }}</a></td>
                     </tr>
+                    {% if opportunity.contact.getAddress %}
                     <tr>
                         <td>Address</td>
                         <td>{{ opportunity.contact.address1 }}<br>
                             {% if opportunity.contact.address2 %}
                             {{ opportunity.contact.address2 }}<br>
                             {% endif %}
-                            {% if opportunity.contact.country %}
-                            {{ opportunity.contact.country }}
-                            {% endif %}
                         </td>
                     </tr>
-
                     <tr>
                         <td>City</td>
                         <td>{{ opportunity.contact.city }} </td>
@@ -49,9 +46,15 @@
                     <tr>
                         <td>State, Zip</td>
                         <td>
-                            {{ opportunity.contact.state }} {{ opportunity.contact.state }}
+                            {{ opportunity.contact.state }} {{ opportunity.contact.zipcode }}
                         </td>
                     </tr>
+                    {% if opportunity.contact.country %}
+                    <tr>
+                        <td>Country</td>
+                         <td>{{ opportunity.contact.country }}</td>
+                    </tr>
+                    {% endif %}
                     <tr>
                         <td>Phone</td>
                         <td>{{ opportunity.contact.phone }}</td>
@@ -60,6 +63,40 @@
                         <td>Email</td>
                         <td><a href="mailto:{{ opportunity.contact.email }}">{{ opportunity.contact.email }}</a></td>
                     </tr>
+                    {% else %}
+                    <tr>
+                        <td>Address</td>
+                        <td>{{ opportunity.company.address1 }}<br>
+                            {% if opportunity.company.address2 %}
+                            {{ opportunity.company.address2 }}<br>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>City</td>
+                        <td>{{ opportunity.company.city }} </td>
+                    </tr>
+                    <tr>
+                        <td>State, Zip</td>
+                        <td>
+                            {{ opportunity.company.state }} {{ opportunity.company.zipcode }}
+                        </td>
+                    </tr>
+                    {% if opportunity.company.country %}
+                    <tr>
+                        <td>Country</td>
+                         <td>{{ opportunity.company.country }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td>Phone</td>
+                        <td>{{ opportunity.company.phone }}</td>
+                    </tr>
+                    <tr>
+                        <td>Website</td>
+                        <td><a href="mailto:{{ opportunity.company.website }}">{{ opportunity.company.website }}</a></td>
+                    </tr>
+                    {% endif %}
                 </table>
                 </div>
             </div>
@@ -78,7 +115,7 @@
 <script>
 var map;
 function initMap() {
-    address = '225 S 700 E, St George, UT 84770';
+    address = '{% if opportunity.contact.getAddress %} {{ opportunity.contact.getAddress }} {% elif opportunity.company.getAddress %} {{ opportunity.company.getAddress }} {% endif %}';
     var geocoder  = new google.maps.Geocoder();
     geocoder.geocode({ 'address': address}, function(results, status) {
         var c = results[0].geometry.location;
@@ -108,7 +145,7 @@ function initMap() {
                 <div class="panel-heading">
                     Contact Log
                         <span class="text-right pull-right">
-                            <a href="{% url 'crm:calladd' %}" class="btn btn-primary btn-sm mdi-content-add-box" style="margin-top: -7px;" title="Add Contact"></a>
+                            <a href="{% url 'crm:calladd' opportunity.id %}" class="btn btn-primary btn-sm mdi-content-add-box" style="margin-top: -7px;" title="Add Contact"></a>
                         </span>
                 </div>
                 <div class="panel-body">

@@ -29,8 +29,9 @@ urlpatterns = [
     url(r'^call/all/$', login_required(CallListView.as_view()), name="calllist" ),
     url(r'^call/(?P<pk>\d+)/$', login_required(CallDetailView.as_view()), name="calldetail"),
     url(r'^call/(?P<pk>\d+)/edit/$', login_required(CallEditView.as_view()), name="calledit"),
-    url(r'^call/add/$', login_required(CallAddView.as_view()), name="calladd"),
+    url(r'^call/add/(?P<pk>\d+)/$', login_required(CallAddView.as_view()), name="calladd"),
     url(r'^call/(?P<pk>\d+)/delete/$', login_required(CallDeleteView.as_view()), name="calldelete"),
+
 
     url(r'^/search/$', login_required(CallDeleteView.as_view()), name="search"),
 
