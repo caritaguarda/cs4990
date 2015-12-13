@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %} Contact Detail {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+
+            <table class="table">
+                <tr>
+                    <th> Contact Name:</th>
+                    <td> {{ contact.first_name }} {{ contact.last_name }} </td>
+                </tr>
+
+                <tr>
+                    <th> Company:</th>
+                    <td> {{ contact.company }} </td>
+                </tr>
+
+               <tr>
+                    <th> Phone:</th>
+                    <td> {{ contact.phone }} </td>
+                </tr>
+
+                <tr>
+                    <th> Email:</th>
+                    <td> {{ contact.email }} </td>
+                </tr>
+
+                <tr>
+                    <th> Address:</th>
+                    <td>
+                        {{ contact.address1 }}<br>
+                        {% if contact.address2 %}
+                        {{ contact.address2 }}<br>
+                        {% endif %}
+                        {{ contact.city }} {{ contact.state }} {{ contact.zipcode }}<br>
+                        {% if contact.country %}
+                        {{ contact.country }} <br>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Opportunities:</th>
+                    <td>
+                        {% for opportunity in opportunity_list %}
+
+                            <a class="text-right" href="{% url 'crm:opportunitydetail' opportunity.id %}">{{ opportunity.user }}'s Opportunity <br>
+                            </a>
+
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-2"><a href="{% url 'crm:contactedit' contact.id %}"><button class="btn">Edit</button></a></div>
+        <div class="col-lg-2"><a href="{% url 'crm:contactdelete' contact.id %}"><button class="btn">Delete</button></a></div>
+        <div class="col-lg-2"><a href="{% url 'crm:contactlist' %}"><button class="btn">Back</button></a></div>
+        <div class="col-lg-3"></div>
+    </div>
+
+
+
+
+{% endblock %}

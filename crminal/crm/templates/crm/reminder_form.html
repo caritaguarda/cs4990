@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if reminder %}Update{% else %}Add{% endif %} A Reminder{% endblock %}
+
+{% block content %}
+
+      <div class = "row">
+        <div class = "col-lg-3"></div>
+        <div class = "col-lg-3">
+        <h1> {% if reminder %}Update{% else %}Add{% endif %} Reminder</h1>
+        </div>
+
+        <div class = "col-lg-3" style = "padding-left: 13.5em; padding-top: 1em;" >
+            <a href="{% url 'crm:reminderlist' %}"><button class="btn">Cancel</button></a>
+        </div>
+        <div class = "col-lg-3"></div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <form action="." method="post">
+            {% csrf_token %}
+
+            <table class="table">
+            {{ form }}
+
+
+            </table>
+
+            <input class="btn pull-right" type="submit" value="{% if reminder %}Update{% else %}Add{% endif %}"/>
+
+            </form>
+            {% if reminder %}
+                <a href="{% url 'crm:reminderdelete' reminder.id %}"><button class="btn">Delete</button></a>
+            {% endif %}
+        </div>
+
+        <div class="col-lg-3">
+        </div>
+    </div>
+
+
+    <br>
+
+
+{% endblock %}

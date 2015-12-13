@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if opportunity %}Update{% else %}Add{% endif %} Opportunity{% endblock %}
+
+{% block content %}
+
+      <div class = "row">
+        <div class = "col-lg-2"></div>
+        <div class = "col-lg-4">
+        <h1> {% if opportunity %}Update{% else %}Add{% endif %} an Opportunity</h1>
+        </div>
+
+        <div class = "col-lg-3" style = "padding-left: 13.5em; padding-top: 1em;" >
+           {% if opportunity %}
+                <a href="{% url 'crm:opportunitydetail' opportunity.id %}"><button  class="btn">Cancel</button></a>
+            {% else %}
+                <a href="{% url 'crm:opportunitylist' %}"><button class="btn">Cancel</button></a>
+            {% endif %}
+        </div>
+        <div class = "col-lg-3"></div>
+      </div>
+
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <form action="." method="post">
+            {% csrf_token %}
+
+            <table class="table">
+            {{ form }}
+
+
+            </table>
+
+            <input class="btn pull-right" type="submit" value="{% if opportunity %}Update{% else %}Add{% endif %}"/>
+
+            </form>
+         {% if opportunity %}
+                <a class="pull-left" href="{% url 'crm:opportunitydelete' opportunity.id %}"><button class="btn">Delete</button></a>
+            {% endif %}
+        </div>
+
+        <div class="col-lg-3">
+        </div>
+    </div>
+
+
+    <br>
+
+
+{% endblock %}

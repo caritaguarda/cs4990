@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %} Campaign Detail {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <h1>Campaign Details</h1>
+            <table class="table">
+                <tr>
+                    <th> Name:</th>
+                    <td> {{ campaign.name }}</td>
+                </tr>
+
+                <tr>
+                    <th> Description:</th>
+                    <td> {{ campaign.description }} </td>
+                </tr>
+                <tr>
+                    <th> Opportunites Generated:</th>
+                    <td>
+                        {% for opportunity in opportunity_list %}
+                            <a href="{% url 'crm:opportunitydetail' opportunity.id %}">{{ opportunity }}</a> <br>
+                        {% endfor %}
+
+                    </td>
+                </tr>
+               <tr>
+                   <td></td>
+                   <th class="text-center"> Total: {{ campaign.get_opportunity_count }} </th>
+               </tr>
+            </table>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-2"><a href="{% url 'crm:campaignedit' campaign.id %}"><button class="btn">Edit</button></a></div>
+        <div class="col-lg-2"></div>
+        <div class="col-lg-2"><a class="pull-right" href="{% url 'crm:campaignlist' %}"><button class="btn">Back</button></a></div>
+        <div class="col-lg-3"></div>
+    </div>
+
+
+
+
+{% endblock %}
