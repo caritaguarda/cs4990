@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %} Company List {% endblock %}
+
+{% block content %}
+    <div class = "row">
+        <div class = "col-lg-6">
+        <h1> Company List</h1>
+        </div>
+        <div class = "col-lg-3"></div>
+        <div class = "col-lg-3 pull-right">
+        <a href="{% url 'crm:companyadd' %}"><button style = "margin-top: 30px;" class="btn">Add a Company</button></a>
+        </div>
+    </div>
+    <table class="table">
+        <tr>
+            <th> Company </th>
+            <th> Phone </th>
+            <th> Website </th>
+            <th></th>
+
+        </tr>
+         {% for company in company_list %}
+         <tr>
+             <td> {{ company.name }} </td>
+             <td> {{ company.phone }}</td>
+             <td> {{ company.website }}</td>
+             <td> <a href="{% url 'crm:companydetail' company.id %}" style="color:gray"> View Details</a></td>
+
+         </tr>
+         {%  empty %}
+             <tr> No companys saved.</tr>
+         {% endfor %}
+
+    </table>
+
+
+{% endblock %}

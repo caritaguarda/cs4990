@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% block title %}CRM Opportunity Dashboard{% endblock %}
+{% block extrascripts %}
+
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="jumbotron">
+                <h1>Opportunity Title (Stage)</a>
+                <p>Edited on Dixie. Let's see who wins.</p>
+                <p class="pull-right"><a href="#">Edit</a></p>
+             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Contact Information
+                </div>
+                <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <td>Company</td>
+                        <td><a href="#">ACME, Inc.</a></td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td>225 S 700 E</td>
+                    </tr>
+                    <tr>
+                        <td>City</td>
+                        <td>St George</td>
+                    </tr>
+                    <tr>
+                        <td>State, Zip</td>
+                        <td>UT, 84770</td>
+                    </tr>
+                    <tr>
+                        <td>Phone</td>
+                        <td>555-555-5555</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><a href="mailto:someone@someplace.com">someone@someplace.com</a></td>
+                    </tr>
+                </table>
+                    <div class="pull-right">
+                    <a href="#" class="btn btn-primary btn-fab btn-raised mdi-content-create text-right" title="Create New Reminder"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Map
+                        <span class="text-right pull-right">
+                            <a href="#" class="btn btn-info btn-sm mdi-action-list" style="margin-top: -7px;" title="List all Opportunities"></a>
+                        </span>
+                </div>
+                <div class="panel-body">
+    <center><div id="map" style="width: auto; height: 300px;"></div></center>
+<script>
+var map;
+function initMap() {
+    address = '225 S 700 E, St George, UT 84770';
+    var geocoder  = new google.maps.Geocoder();
+    geocoder.geocode({ 'address': address}, function(results, status) {
+        var c = results[0].geometry.location;
+        latitude  = c.lat();
+        longitude = c.lng();
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: latitude, lng: longitude},
+            scrollwheel: false,
+            zoom: 14,
+        });
+        var marker = new google.maps.Marker({
+            map: map,
+            position: {lat: latitude, lng: longitude},
+            title: 'Opportunity Name',
+        });
+    });
+}
+</script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyDxCDEfKuCyTVE-Ex43CG5PQec_Uc5CiQQ&callback=initMap" async defer></script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Call Log for ACME, Inc.
+                        <span class="text-right pull-right">
+                            <a href="#" class="btn btn-primary btn-sm mdi-action-list" style="margin-top: -7px;" title="List all Opportunities"></a>
+                        </span>
+                </div>
+                <div class="panel-body">
+                <table class="table">
+                <tr>
+                    <th>Date</th>
+                    <th>Note</th>
+                    <th>Who</th>
+                </tr>
+                <tr>
+                    <td>1 Dec 2015</td>
+                    <td>Called and left a message. They were on vacation.</td>
+                    <td>ridley</td>
+                </tr>
+                <tr>
+                    <td>3 Dec 2015</td>
+                    <td>Sent care package because the coyote got an anvil dropped on his head.</td>
+                    <td>Cari</td>
+                </tr>
+                </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Stage History
+                        <span class="text-right pull-right">
+                            <a href="#" class="btn btn-primary btn-sm mdi-action-list" style="margin-top: -7px;" title="List all Opportunities"></a>
+                        </span>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                    <tr>
+                        <th>Date</th>
+                        <th>Stage</th>
+                        <th>User</th>
+                    </tr>
+                    <tr>
+                        <td>1 April 2015</td>
+                        <td>Lead</td>
+                        <td>Ralph</td>
+                    </tr>
+                    <tr>
+                        <td>3 July 2015</td>
+                        <td>Demo Sent</td>
+                        <td>Ralph</td>
+                    </tr>
+                    <tr>
+                        <td>20 Nov 2015</td>
+                        <td>Closed Won</td>
+                        <td>Jane</td>
+                    </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if company %}Update{% else %}Add{% endif %} Company{% endblock %}
+
+{% block content %}
+
+      <div class = "row">
+        <div class = "col-lg-2"></div>
+        <div class = "col-lg-4">
+        <h1> {% if company %}Update{% else %}Add{% endif %} a Company</h1>
+        </div>
+
+        <div class = "col-lg-3" style = "padding-left: 13.5em; padding-top: 1em;" >
+           {% if company %}
+                <a href="{% url 'crm:companydetail' company.id %}"><button  class="btn">Cancel</button></a>
+            {% else %}
+                <a href="{% url 'crm:companylist' %}"><button class="btn">Cancel</button></a>
+            {% endif %}
+        </div>
+        <div class = "col-lg-3"></div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-5">
+            <form action="." method="post">
+            {% csrf_token %}
+
+            <table class="table">
+            {{ form }}
+
+
+            </table>
+
+            <input class="btn pull-right" type="submit" value="{% if company %}Update{% else %}Add{% endif %}"/>
+
+            </form>
+         {% if company %}
+                <a href="{% url 'crm:companydelete' company.id %}"><button class="btn">Delete</button></a>
+            {% endif %}
+        </div>
+         <div class="col-lg-1"></div>
+            <table class="table">
+
+
+            </table>
+
+        <div class="col-lg-3">
+        </div>
+    </div>
+
+
+    <br>
+
+
+{% endblock %}

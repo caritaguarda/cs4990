@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %} Reminder List {% endblock %}
+
+{% block content %}
+    <div class = "row">
+        <div class = "col-lg-6">
+        <h1> Reminder List</h1>
+        </div>
+        <div class = "col-lg-3"></div>
+        <div class = "col-lg-3 pull-right">
+        <a href="{% url 'crm:reminderadd' %}"><button style = "margin-top: 30px;" class="btn">Add a Reminder</button></a>
+        </div>
+    </div>
+    <table class="table">
+        <tr>
+            <th>Date </th>
+
+            <th> Opportunity </th>
+            <th> Note </th>
+            <th></th>
+
+        </tr>
+         {% for reminder in reminder_list %}
+         <tr>
+             <td> {{ reminder.date }}</td>
+             <td> {{ reminder.opportunity }}</td>
+             <td> {{ reminder.note }}</td>
+             <td> <a href="{% url 'crm:reminderedit' reminder.id %}" style="color:gray"> Edit </a></td>
+         </tr>
+         {%  empty %}
+             <tr> <td colspan="3"> No reminders saved.</td></tr>
+         {% endfor %}
+
+    </table>
+
+    <td> <a href="{% url 'crm:remindercomplete'%}" style="color:gray"> View Completed Reminders</a></td>
+
+
+{% endblock %}
