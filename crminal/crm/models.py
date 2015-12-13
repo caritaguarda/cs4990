@@ -62,8 +62,16 @@ class Campaign(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_opportunity_count(self):
+        opportunity_list = []
+        for opportunity in Opportunity.objects.all().filter(source = self.id):
+            opportunity_list.append(opportunity)
+        return len(opportunity_list)
+
+
 
 class Opportunity(models.Model):
+    name = models.CharField(max_length=200)
     stage = models.ForeignKey(Stage)
     company = models.ForeignKey(Company, blank=True, null=True)
     contact = models.ForeignKey(Contact)
