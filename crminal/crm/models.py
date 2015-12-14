@@ -13,9 +13,10 @@ class Stage(models.Model):
     def __unicode__(self):
         return self.name
 
-    #def Meta:
-        #ordering = ??
+    class Meta:
+        ordering = ['order']
 
+        
 class Company(models.Model):
     name = models.CharField(max_length=200)
     website = models.URLField(max_length=200, blank=True, null=True)

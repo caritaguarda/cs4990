@@ -331,6 +331,7 @@ class OpportunityAddView(CreateView):
 
         return super(OpportunityAddView, self).form_valid(form)
 
+
 class OpportunityDeleteView(DeleteView):
     model = Opportunity
     success_url = reverse_lazy('crm:opportunitylist')
