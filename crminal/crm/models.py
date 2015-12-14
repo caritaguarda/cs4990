@@ -114,7 +114,7 @@ class Campaign(models.Model):
 
 
 class Opportunity(models.Model):
-    name = models.CharField(max_length=200)
+    description = models.CharField(max_length=200, blank=True, null=True)
     stage = models.ForeignKey(Stage)
     company = models.ForeignKey(Company, blank=True, null=True)
     contact = models.ForeignKey(Contact)
@@ -146,6 +146,8 @@ class Reminder(models.Model):
     def __unicode__(self):
         str(self.opportunity) + ": " + self.note
 
+    def markComplete(self):
+        self.complete = True
 
 class Report(models.Model):
     name = models.CharField(max_length=200)

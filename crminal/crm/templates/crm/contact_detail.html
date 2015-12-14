@@ -47,7 +47,8 @@
                     <td>
                         {% for opportunity in opportunity_list %}
 
-                            <a class="text-right" href="{% url 'crm:opportunitydetail' opportunity.id %}">{{ opportunity.user }}'s Opportunity <br>
+                            <a class="text-right" href="{% url 'crm:opportunitydetail' opportunity.id %}">
+                                {% if opportunity.description %}{{ opportunity.description }} {% else %} {{ opportunity }} {% endif %} <br>
                             </a>
 
                         {% endfor %}

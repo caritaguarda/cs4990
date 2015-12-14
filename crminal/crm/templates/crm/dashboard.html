@@ -7,12 +7,10 @@
       google.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
+          ['Stage', 'Opportunity Count'],
+          {% for stage in stage_list %}
+          ['{{ stage.name }}', {{ stage.num_opp }}],
+          {% endfor %}
         ]);
         var options = {
           // title: 'My Daily Activities'
@@ -25,14 +23,7 @@
     </script>
 {% endblock %}
 {% block content %}
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="jumbotron">
-                <h1>ACME, Inc. CRM</a>
-                <p>Let's go manage those sales relationships...</p>
-             </div>
-        </div>
-    </div>
+
 
     <div class="row">
         <div class="col-lg-6">
@@ -40,7 +31,7 @@
                 <div class="panel-heading">
                     Upcoming Reminders
                         <span class="text-right pull-right">
-                            <a href="#" class="btn btn-primary btn-sm mdi-action-list" style="margin-top: -7px;" title="List all Opportunities"></a>
+                            <a href="{% url 'crm:reminderlist' %}" class="btn btn-primary btn-sm mdi-action-list" style="margin-top: -7px;" title="List all Reminders"></a>
                         </span>
                 </div>
                 <div class="panel-body">
@@ -49,35 +40,31 @@
                         <th>Opportunity</th>
                         <th>Note</th>
                         <th>Due Date</th>
+                        <th></th>
                     </tr>
+                    {% for reminder in reminder_list %}
                     <tr>
-                        <td><a href="#">Wiley Coyote</a></td>
-                        <td>Inquire about rocket kit...</td>
-                        <td>1 Dec 2015</td>
+                        <td><a href="{% url 'crm:opportunitydetail' reminder.opportunity.id %}">{{ reminder.opportunity.contact }}</a></td>
+                        <td>{{ reminder.note }}</td>
+                        <td>{{ reminder.date }}</td>
+                        <td> <a href="{% url 'crm:reminderedit' reminder.id %}"> Update </a> </td>
                     </tr>
-                    <tr>
-                        <td><a href="#">Bugs Bunny</a></td>
-                        <td>When duck season comes around,...</td>
-                        <td>2 Dec 2015</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">Marvin the Martian</a></td>
-                        <td>Opportunity rover avoidance followup</td>
-                        <td>7 Dec 2015</td>
-                    </tr>
+                    {% empty %}
+                    <tr> <td colspan="4"> No Upcoming Reminders</td></tr>
+                    {% endfor %}
                 </table>
                     <div class="pull-right">
-                    <a href="#" class="btn btn-primary btn-fab btn-raised mdi-content-add-box text-right" title="Create New Reminder"></a>
+                    <a href="{% url 'crm:reminderadd' %}" class="btn btn-primary btn-fab btn-raised mdi-content-add-box text-right" title="Create New Reminder"></a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-6">
-            <div class="panel panel-info">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     Newest Opportunities
                         <span class="text-right pull-right">
-                            <a href="#" class="btn btn-info btn-sm mdi-action-list" style="margin-top: -7px;" title="List all Opportunities"></a>
+                            <a href="{% url 'crm:opportunitylist' %}" class="btn btn-primary btn-sm mdi-action-list" style="margin-top: -7px;" title="List all Opportunities"></a>
                         </span>
                 </div>
                 <div class="panel-body">
@@ -88,27 +75,19 @@
                         <th>Value</th>
                         <th>Creation Date</th>
                     </tr>
+                    {% for opportunity in opportunity_list %}
                     <tr>
-                        <td><a href="#" class="text-info">Wiley Coyote</a></td>
-                        <td>Proposal Sent</td>
-                        <td>$23,273</td>
-                        <td>1 Nov 2015</td>
+                        <td><a href="{% url 'crm:opportunitydetail' opportunity.id %}">{{ opportunity }}</a></td>
+                        <td>{{ opportunity.stage }}</td>
+                        <td>{{ opportunity.value }}</td>
+                        <td>{{ opportunity.date }}</td>
                     </tr>
-                    <tr>
-                        <td><a href="#" class="text-info">Desert Sands, Inc.</a></td>
-                        <td>Lead</td>
-                        <td>$3,830</td>
-                        <td>31 Oct 2015</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#" class="text-info">Dixie State University</a></td>
-                        <td>Contract Accepted</td>
-                        <td>$2,281</td>
-                        <td>30 Oct 2015</td>
-                    </tr>
+                    {% empty %}
+                    <tr> <td colspan="4"> No Opportunities Found</td></tr>
+                    {% endfor %}
                 </table>
                         <div class="pull-right">
-                        <a href="#" class="btn btn-info btn-fab btn-raised btn-sm mdi-content-add-box text-right"></a>
+                        <a href="{% url 'crm:opportunityadd' %}" class="btn btn-primary btn-fab btn-raised btn-sm mdi-content-add-box text-right" title="Add Opportunity"></a>
                         </div>
                 </div>
             </div>
@@ -120,7 +99,7 @@
                 <div class="panel-heading">
                     Opportunities By Stage
                         <span class="text-right pull-right">
-                            <a href="#" class="btn btn-primary btn-sm mdi-action-list" style="margin-top: -7px;" title="List all Opportunities"></a>
+                            <a href="{% url 'crm:stagedetail' %}" class="btn btn-primary btn-sm mdi-action-list" style="margin-top: -7px;" title="List all Opportunities by Stage"></a>
                         </span>
                 </div>
                 <div class="panel-body">
@@ -132,9 +111,6 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     Top Producers
-                        <span class="text-right pull-right">
-                            <a href="#" class="btn btn-primary btn-sm mdi-action-list" style="margin-top: -7px;" title="List all Opportunities"></a>
-                        </span>
                 </div>
                 <div class="panel-body">
                     <table class="table">
@@ -142,18 +118,14 @@
                         <th>Name</th>
                         <th>Opportunities Closed</th>
                     </tr>
+                    {% for user in opp_users %}
                     <tr>
-                        <td>John Doe</td>
-                        <td>28</td>
+                        <td>{% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user }}{% endif %}</td>
+                        <td>{{ user.num_opp }}</td>
                     </tr>
-                    <tr>
-                        <td>Jane Doe</td>
-                        <td>27</td>
-                    </tr>
-                    <tr>
-                        <td>Johnny Smith</td>
-                        <td>14</td>
-                    </tr>
+                        {% empty %}
+                        <tr><td colspan="2"> No Closed Opportunities</td> </tr>
+                    {% endfor %}
                     </table>
                 </div>
             </div>

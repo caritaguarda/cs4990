@@ -16,7 +16,8 @@
         <tr>
             <th> Contact </th>
             <th> Company </th>
-            <th> Belongs To </th>
+            <th> Description </th>
+
             <th></th>
 
         </tr>
@@ -24,12 +25,12 @@
          <tr>
              <td> {{ opportunity.contact.get_full_name }} </td>
              <td> {{ opportunity.company }}</td>
-             <td> {{ opportunity.user }}</td>
+             <td> {{ opportunity.description }}</td>
              <td> <a href="{% url 'crm:opportunitydetail' opportunity.id %}" style="color:gray"> View Details</a></td>
 
          </tr>
          {%  empty %}
-             <tr> <td> No opportunities saved.</td> </tr>
+             <tr> <td colspan="4"> No opportunities saved.</td> </tr>
          {% endfor %}
 
     </table>

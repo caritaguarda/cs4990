@@ -32,15 +32,17 @@ urlpatterns = [
     url(r'^call/add/(?P<pk>\d+)/$', login_required(CallAddView.as_view()), name="calladd"),
     url(r'^call/(?P<pk>\d+)/delete/$', login_required(CallDeleteView.as_view()), name="calldelete"),
 
-
-    url(r'^/search/$', login_required(CallDeleteView.as_view()), name="search"),
+    url(r'^/search/$', login_required(SearchResultsView.as_view()), name="search"),
 
     url(r'^opportunity/all/$', login_required(OpportunityListView.as_view()), name="opportunitylist" ),
     url(r'^opportunity/add/$', login_required(OpportunityAddView.as_view()), name="opportunityadd"),
     url(r'^opportunity/(?P<pk>\d+)/$', login_required(OpportunityDetailView.as_view()), name="opportunitydetail"),
     url(r'^opportunity/(?P<pk>\d+)/edit/$', login_required(OpportunityEditView.as_view()), name="opportunityedit"),
     url(r'^opportunity/(?P<pk>\d+)/delete/$', login_required(OpportunityDeleteView.as_view()), name="opportunitydelete"),
-    
+    url(r'^opportunity/stage/$', login_required(StageDetailView.as_view()), name="stagedetail"),
+    url(r'^opportunity/(?P<pk>\d+)/reminder/$', login_required(AddOpportunityReminderView.as_view()), name="opportunityreminder"),
+
+
     url(r'^contact/all/$', login_required(ContactListView.as_view()), name="contactlist" ),
     url(r'^contact/add/$', login_required(ContactAddView.as_view()), name="contactadd"),
     url(r'^contact/(?P<pk>\d+)/$', login_required(ContactDetailView.as_view()), name="contactdetail"),
@@ -63,7 +65,6 @@ urlpatterns = [
 
 
     url(r'^stage/all/$', login_required(StageListView.as_view()), name="stagelist" ),
-    url(r'^stage/(?P<pk>\d+)/$', login_required(StageDetailView.as_view()), name="stagedetail"),
     url(r'^stage/(?P<pk>\d+)/edit/$', login_required(StageEditView.as_view()), name="stageedit"),
 
 

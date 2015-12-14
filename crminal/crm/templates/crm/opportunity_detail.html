@@ -7,9 +7,8 @@
 <div class="jumbotron">
     <div class="row">
         <div class="col-lg-12">
-            <h1 style="margin-top: 10px;">{{ opportunity.name }} ({{ opportunity.stage }})
-            <a class="btn btn-primary btn-fab btn-raised mdi-content-create pull-right" href="{% url 'crm:opportunityedit' opportunity.id %}" title="Edit Opportunity"></a>
-            </h1>
+            <h1 style="margin-top: 10px;">{{ opportunity }} </h1>
+            <h2> {{ opportunity.description }} (Stage: {{ opportunity.stage }})<a class="btn btn-primary btn-fab btn-raised mdi-content-create pull-right" href="{% url 'crm:opportunityedit' opportunity.id %}" title="Edit Opportunity"></a></h2>
         </div>
     </div>
 </div>
@@ -20,7 +19,7 @@
                 <div class="panel-heading">
                     Contact Information
                     <span class="text-right pull-right">
-                            <a href="{% url 'crm:contactedit' opportunity.contact.id %}" class="btn btn-primary btn-sm mdi-content-create" style="margin-top: -7px;" title="List all Opportunities"></a>
+                            <a href="{% url 'crm:contactedit' opportunity.contact.id %}" class="btn btn-primary btn-sm mdi-content-create" style="margin-top: -7px;" title="Edit Contact"></a>
                     </span>
                 </div>
                 <div class="panel-body">
@@ -102,12 +101,12 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <div class="panel panel-info">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     Map
-                        <!-- class="text-right pull-right">
-                            <a href="#" class="btn btn-info btn-sm mdi-action-list" style="margin-top: -7px;" title="List all Opportunities"></a>
-                        </ -->
+                        <span class="text-right pull-right">
+                            <a href="{% url 'crm:contactedit' opportunity.contact.id %}" class="btn btn-primary btn-sm mdi-action-list" style="margin-top: -7px;" title="Update Address"></a>
+                        </span>
                 </div>
                 <div class="panel-body">
 
@@ -143,9 +142,9 @@ function initMap() {
         <div class="col-lg-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Contact Log
+                    Call Log
                         <span class="text-right pull-right">
-                            <a href="{% url 'crm:calladd' opportunity.id %}" class="btn btn-primary btn-sm mdi-content-add-box" style="margin-top: -7px;" title="Add Contact"></a>
+                            <a href="{% url 'crm:calladd' opportunity.id %}" class="btn btn-primary btn-sm mdi-content-add-box" style="margin-top: -7px;" title="Add Call"></a>
                         </span>
                 </div>
                 <div class="panel-body">
@@ -191,6 +190,36 @@ function initMap() {
                     </tr>
                     {% endfor %}
 
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Reminders
+                    <span class="text-right pull-right">
+                            <a href="{% url 'crm:opportunityreminder' opportunity.id %}" class="btn btn-primary btn-sm mdi-content-create" style="margin-top: -7px;" title="Add Reminder"></a>
+                    </span>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <tr>
+                            <th> Date </th>
+                            <th> Note </th>
+                            <th> </th>
+                        </tr>
+                        {% for reminder in opportunity.reminder_set.all %}
+                            <tr>
+                                <td> {{ reminder.date }} </td>
+                                <td> {{ reminder.note }}</td>
+                                <td> <a href="{% url 'crm:reminderedit' reminder.id %}"> Edit</a> </td>
+                            </tr>
+                        {% empty %}
+                        <tr> <td colspan="3"> No Reminders Found for this Opportunity </td></tr>
+                        {% endfor %}
                     </table>
                 </div>
             </div>

@@ -38,6 +38,16 @@
                         {% endif %}
                     </td>
                 </tr>
+                <tr>
+                    <th> Contacts: </th>
+                    <td>
+                        {% for contact in company.contact_set.all %}
+                            <a href="{% url 'crm:contactdetail' contact.id %}">{{ contact.first_name }} {{ contact.last_name }}</a><br>
+                        {% empty %}
+                            No Contacts Found
+                        {% endfor %}
+                    </td>
+                </tr>
             </table>
         </div>
         <div class="col-lg-3"></div>
