@@ -80,7 +80,7 @@
                         <td><a href="{% url 'crm:opportunitydetail' opportunity.id %}">{{ opportunity }}</a></td>
                         <td>{{ opportunity.stage }}</td>
                         <td>{{ opportunity.value }}</td>
-                        <td>{{ opportunity.date }}</td>
+                        <td>{{ opportunity.create_date }}</td>
                     </tr>
                     {% empty %}
                     <tr> <td colspan="4"> No Opportunities Found</td></tr>
