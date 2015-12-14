@@ -16,7 +16,7 @@ class Stage(models.Model):
     class Meta:
         ordering = ['order']
 
-        
+
 class Company(models.Model):
     name = models.CharField(max_length=200)
     website = models.URLField(max_length=200, blank=True, null=True)

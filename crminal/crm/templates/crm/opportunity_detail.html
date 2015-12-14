@@ -27,7 +27,13 @@
                 <table class="table">
                     <tr>
                         <td>Company</td>
-                        <td><a href="{% url 'crm:companydetail' opportunity.company.id %}">{{ opportunity.company }}</a></td>
+                        <td>
+                            {% if opportunity.company %}
+                            <a href="{% url 'crm:companydetail' opportunity.company.id %}">{{ opportunity.company }}</a>
+                            {% else %}
+                            None
+                            {% endif %}
+                        </td>
                     </tr>
                     {% if opportunity.contact.getAddress %}
                     <tr>
