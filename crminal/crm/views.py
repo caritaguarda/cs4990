@@ -239,12 +239,11 @@ class ReportListView(ListView):
 
 
 class StageListView(ListView):
-    pass
-
-
-class StageDetailView(ListView):
     model = Stage
-    template_name = 'crm/opportunity_by_stage.html'
+    ordering = 'order'
+
+class StageDetailView(DetailView):
+    model = Stage
 
 
 

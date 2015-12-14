@@ -39,7 +39,6 @@ urlpatterns = [
     url(r'^opportunity/(?P<pk>\d+)/$', login_required(OpportunityDetailView.as_view()), name="opportunitydetail"),
     url(r'^opportunity/(?P<pk>\d+)/edit/$', login_required(OpportunityEditView.as_view()), name="opportunityedit"),
     url(r'^opportunity/(?P<pk>\d+)/delete/$', login_required(OpportunityDeleteView.as_view()), name="opportunitydelete"),
-    url(r'^opportunity/stage/$', login_required(StageDetailView.as_view()), name="stagedetail"),
     url(r'^opportunity/(?P<pk>\d+)/reminder/$', login_required(AddOpportunityReminderView.as_view()), name="opportunityreminder"),
 
 
@@ -66,6 +65,7 @@ urlpatterns = [
 
     url(r'^stage/all/$', login_required(StageListView.as_view()), name="stagelist" ),
     url(r'^stage/(?P<pk>\d+)/edit/$', login_required(StageEditView.as_view()), name="stageedit"),
+    url(r'^stage/(?P<pk>\d+)/$', login_required(StageDetailView.as_view()), name="stagedetail"),
 
 
     url(r'^campaign/all/$', login_required(CampaignListView.as_view()), name="campaignlist" ),

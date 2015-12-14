@@ -9,7 +9,7 @@
         var data = google.visualization.arrayToDataTable([
           ['Stage', 'Opportunity Count'],
           {% for stage in stage_list %}
-          ['{{ stage.name }}', {{ stage.num_opp }}],
+          ["{{ stage.name }}", {{ stage.num_opp }}],
           {% endfor %}
         ]);
         var options = {
@@ -99,7 +99,7 @@
                 <div class="panel-heading">
                     Opportunities By Stage
                         <span class="text-right pull-right">
-                            <a href="{% url 'crm:stagedetail' %}" class="btn btn-primary btn-sm mdi-action-list" style="margin-top: -7px;" title="List all Opportunities by Stage"></a>
+                            <a href="{% url 'crm:stagelist' %}" class="btn btn-primary btn-sm mdi-action-list" style="margin-top: -7px;" title="List all Opportunities by Stage"></a>
                         </span>
                 </div>
                 <div class="panel-body">

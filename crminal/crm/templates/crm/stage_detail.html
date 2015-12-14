@@ -3,26 +3,28 @@
 {% block title %} Stage Detail {% endblock %}
 
 {% block content %}
-
+    <h1> Opportunities by Stage: {{ stage.name }}</h1>
 
     <table class="table">
         <tr>
-            <th> Name </th>
+            <th> Opportunity </th>
 
-            <th> Order </th>
-            <th> Value </th>
             <th> Description </th>
+            <th> Value </th>
             <th></th>
         </tr>
-
+        {% for opportunity in stage.opportunity_set.all %}
          <tr>
-             <td> {{ stage.name }} </td>
-             <td> {{ stage.order }}</td>
-             <td> {{ stage.value }}</td>
-             <td> {{ stage.description }}</td>
-            <th><a href="{% url 'crm:stage_update' stage.id %}"><button class="btn">Edit</button></a></th>
+             <td> {{ opportunity }} </td>
+             <td> {{ opportunity.description }}</td>
+             <td> {{ opportunity.value }}</td>
+             <td><a href="{% url 'crm:opportunitydetail' opportunity.id %}">View</a></td>
          </tr>
-
+        {% empty %}
+        <tr>
+            <td colspan="4"> No opportunities found in this stage. </td>
+        </tr>
+        {% endfor %}
 
     </table>
 
