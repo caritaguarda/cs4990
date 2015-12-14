@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %} CRM Search Results {% endblock %}
+
+{% block content %}
+    <h1> Search Results </h1>
+
+    <table class="table">
+        <tr>
+            <th>Opportunities:</th>
+            <th></th>
+        </tr>
+         {% for opportunity in opportunities %}
+         <tr>
+             <td>{% if opportunity.description %}{{ opportunity.description }}, {% endif %} {{ opportunity }}</td>
+             <td> <a href="{% url 'crm:opportunitydetail' opportunity.id %}" style="color:gray"> View Details</a></td>
+         </tr>
+         {%  empty %}
+             <tr> <td colspan="2"> No matching opportunities.</td> </tr>
+         {% endfor %}
+        <tr>
+            <th>Contacts:</th>
+            <th></th>
+        </tr>
+         {% for contact in contacts %}
+         <tr>
+             <td>{{ contact.first_name }} {{ contact.last_name }}</td>
+             <td> <a href="{% url 'crm:contactdetail' contact.id %}" style="color:gray"> View Details</a></td>
+         </tr>
+         {%  empty %}
+             <tr> <td colspan="2"> No matching contacts.</td> </tr>
+         {% endfor %}
+        <tr>
+        <th>Companies:</th>
+            <th></th>
+        </tr>
+         {% for company in companies %}
+         <tr>
+             <td>{{ company.name }}</td>
+             <td> <a href="{% url 'crm:companydetail' company.id %}" style="color:gray"> View Details</a></td>
+         </tr>
+         {%  empty %}
+             <tr> <td colspan="2"> No matching companies.</td> </tr>
+         {% endfor %}
+            <tr>
+        <th>Reminders:</th>
+            <th></th>
+        </tr>
+         {% for reminder in reminders %}
+         <tr>
+             <td>{{ reminder.note }}</td>
+             <td> <a href="{% url 'crm:reminderedit' reminder.id %}" style="color:gray"> View Details</a></td>
+         </tr>
+         {%  empty %}
+             <tr> <td colspan="2"> No matching reminders.</td> </tr>
+         {% endfor %}
+            <tr>
+        <th>Calls:</th>
+            <th></th>
+        </tr>
+         {% for call in calls %}
+         <tr>
+             <td>{{ call.note }}</td>
+             <td> <a href="{% url 'crm:calldetail' call.id %}" style="color:gray"> View Details</a></td>
+         </tr>
+         {%  empty %}
+             <tr> <td colspan="2"> No matching calls.</td> </tr>
+         {% endfor %}
+    </table>
+
+
+{% endblock %}

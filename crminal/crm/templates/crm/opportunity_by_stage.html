@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %} Opportunity List by Stage{% endblock %}
+
+{% block content %}
+    <div class = "row">
+        <div class = "col-lg-6">
+        <h1> Opportunity List by Stage </h1>
+        </div>
+        <div class = "col-lg-3"></div>
+        <div class = "col-lg-3 pull-right">
+        <a href="{% url 'crm:opportunityadd' %}"><button style = "margin-top: 30px;" class="btn">Add an Opportunity</button></a>
+        </div>
+    </div>
+    <table class="table">
+        <tr>
+            <th> Contact </th>
+            <th> Company </th>
+            <th> Description </th>
+
+            <th></th>
+
+        </tr>
+         {% for opportunity in opportunity_list %}
+         <tr>
+             <td> {{ opportunity.contact.get_full_name }} </td>
+             <td> {{ opportunity.company }}</td>
+             <td> {{ opportunity.description }}</td>
+             <td> <a href="{% url 'crm:opportunitydetail' opportunity.id %}" style="color:gray"> View Details</a></td>
+
+         </tr>
+         {%  empty %}
+             <tr> <td colspan="4"> No opportunities saved.</td> </tr>
+         {% endfor %}
+
+    </table>
+
+
+{% endblock %}
