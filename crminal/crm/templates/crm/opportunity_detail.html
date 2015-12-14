@@ -215,12 +215,20 @@ function initMap() {
                         <tr>
                             <th> Date </th>
                             <th> Note </th>
+                            <th> Completed?</th>
                             <th> </th>
                         </tr>
                         {% for reminder in opportunity.reminder_set.all %}
                             <tr>
                                 <td> {{ reminder.date }} </td>
                                 <td> {{ reminder.note }}</td>
+                                <td>
+                                    {% if reminder.completed %}
+                                    Yes
+                                    {% else %}
+                                    No
+                                    {% endif %}
+                                </td>
                                 <td> <a href="{% url 'crm:reminderedit' reminder.id %}"> Edit</a> </td>
                             </tr>
                         {% empty %}

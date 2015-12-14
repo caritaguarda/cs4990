@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'^call/add/(?P<pk>\d+)/$', login_required(CallAddView.as_view()), name="calladd"),
     url(r'^call/(?P<pk>\d+)/delete/$', login_required(CallDeleteView.as_view()), name="calldelete"),
 
-    url(r'^/search/$', login_required(SearchResultsView.as_view()), name="search"),
+    url(r'^search/$', login_required(SearchResultsView.as_view()), name="search"),
 
     url(r'^opportunity/all/$', login_required(OpportunityListView.as_view()), name="opportunitylist" ),
     url(r'^opportunity/add/$', login_required(OpportunityAddView.as_view()), name="opportunityadd"),
